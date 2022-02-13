@@ -1,6 +1,6 @@
 from keras.callbacks import ReduceLROnPlateau
 import keras.backend as K
-from LRFinder import LRFinder
+from .lr_finder import LRFinder
 
 
 class LRFOnPlateau(ReduceLROnPlateau):
@@ -20,6 +20,9 @@ class LRFOnPlateau(ReduceLROnPlateau):
         if self.in_cooldown():
             self.cooldown_counter -= 1
             self.wait = 0
+        
+        if current is None:
+            current = 0.0
 
         if self.monitor_op(current, self.best):
             self.best = current
