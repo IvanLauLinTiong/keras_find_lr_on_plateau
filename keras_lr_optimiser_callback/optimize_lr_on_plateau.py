@@ -32,7 +32,7 @@ class LRFOnPlateau(ReduceLROnPlateau):
             if self.wait >= self.patience:
                 old_lr = float(K.get_value(self.model.optimizer.lr))
                 if old_lr > self.min_lr:
-                    lrf.find_generator(self.train_iterator, self.min_lr, self.max_lr, self.epochs, self.train_samples // self.batch_size)
+                    lrf.find_generator(self.train_iterator, self.min_lr, self.max_lr, self.epochs, len(self.train_samples) // self.batch_size)
                     new_lr = lrf.get_best_lr_exp_weighted()
                     K.set_value(self.model.optimizer.lr, new_lr)
                     if self.verbose > 0:
